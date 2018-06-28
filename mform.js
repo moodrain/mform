@@ -5,8 +5,8 @@ function $mform(mform, container, callback) {
     if(!mform.notifier)
         importMuyuCss()
     mform.notifier = $vdf(mform.notifier, {
-        success: msg => {$notify(msg)},
-        error: msg => {$notify(msg, 'muyu-notify-error')},
+        success: msg => { $notify(msg) },
+        error: msg => { $notify(msg, 'muyu-notify-error') },
     })
     let inputs = []
     let btns = []
@@ -14,21 +14,25 @@ function $mform(mform, container, callback) {
     if(mform.inputWrapper === undefined || mform.formWrapper === undefined)
         importPureCss()
     mform.fields = initFields(mform.fields)
-    mform.btns = initBtns(mform.btns)
-    mform.verify = initVerify(mform)
+    mform.btns = $vlt(mform.btns, b => initBtns(b))
+    mform.verify = mform.verify ? initVerify(mform) : mform.verify
     mform.fields.forEach(field => { inputs.push(inputWrapper(createInput(field))) })
-    mform.btns.forEach(btn => { btns.push(btnWrapper(createBtn(btn, mform))) })
     mform.fields = inputs
-    mform.btns = btns
+    if(mform.btns) {
+        mform.btns.forEach(btn => { btns.push(btnWrapper(createBtn(btn, mform))) })
+        mform.btns = btns
+    }
     mform.formData = () => {
         let keys = []
         mform.object.fields.forEach(field => { keys.push(field.object.name) })
-        return $fd(keys, mform.object.prefix)
+        return $fd(keys, $vdf(mform.object.prefix, undefined))
     }
     mform = mform.mform = formWrapper(createForm(mform))
     if(container)
         $add($e(container), mform.tag)
     if(mform.object.api) {
+        if(!mform.object.values)
+            mform.object.values = {}
         $get(mform.object.api, rs => {
             for([key, val] of Object.entries(rs.data))
                 mform.object.values[key] = val
@@ -42,6 +46,10 @@ function $mform(mform, container, callback) {
         callback(mform)
     return mform
 
+    function reset(form) {
+        form.fields.forEach(field => { $v(field.object.id, '') })
+        setValues(form)
+    }
     function setValues(form) {
         for([key, val] of Object.entries(form.values))
         {
@@ -58,7 +66,7 @@ function $mform(mform, container, callback) {
             let fd = rawField.split(':')
             let key, id, name, tag, type, options, attributes, placeholder
             key = fd[0]
-            id = (mform.prefix + '-' + fd[1]).split('>')[0]
+            id = (mform.prefix ? mform.prefix + '-' + fd[1] : fd[1]).split('>')[0]
             name = fd[1].split('>')[0]
             tag = $vex(fd[2], 'input', rs => rs !== undefined, elem =>  elem.split('|')[0].split('>')[0])
             switch(tag) {
@@ -157,9 +165,10 @@ function $mform(mform, container, callback) {
             $add(fieldset, field.tag)
         })
         control.className = 'pure-controls'
-        form.object.btns.forEach(btn => {
-            $add(control, btn.tag)
-        })
+        if(form.object.btns)
+            form.object.btns.forEach(btn => {
+                $add(control, btn.tag)
+            })
         $add(fieldset, control)
         $add(tag, fieldset)
         return form
@@ -280,7 +289,7 @@ function $mform(mform, container, callback) {
         tag.name = btn.name
         tag.className = btn.className
         switch(btn.type) {
-            case 'reset': $click(tag, () => { setValues(form) });break
+            case 'reset': $click(tag, () => { reset(form) });break
             case 'submit': $click(tag, () => {
                 let tag = form.mform.tag
                 let obj = form.mform.object
@@ -304,10 +313,10 @@ function $mform(mform, container, callback) {
                     }
                 }
                 if(rs) {
-                    if(obj.action)
-                        tag.submit()
-                    (obj.api)
+                    if(obj.api)
                         $post(obj.api, obj.formData(), rs => { success($vdf(rs.msg , '提交成功')) }, rs => { error($vdf(rs.msg, '提交失败')) }, obj.enctype == 'application/json' ? 'json' : 'form')
+                    else
+                        tag.submit()
                 }
             })
         }
