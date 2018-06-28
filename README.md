@@ -101,7 +101,11 @@ api.php
                         message: 'verify field fail',
                     }
                 }
-            }
+            },
+			notifier: {
+				success: message => {},
+				error: message => {}
+			}
         }, 'element', form => {})
 
 
