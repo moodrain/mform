@@ -75,8 +75,8 @@ api.php
         $mfotm({
             prefix: '',
             api: '',
-            action: '', // you can not set api and action in the same time
-            enctype: 'form or json',
+            action: '',      // you can not set api and action in the same time
+            enctype: 'json', // the enctype can be form (default), data or json
             fields: [
                 'label:id or name:type:placeholder>attribute1,attribute2',
                 'label:id or name:select>attribute1|text1:val1,text2:val2',
