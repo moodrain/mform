@@ -94,7 +94,7 @@ api.php
             verify: {
                 all: 'notnull',
                 default: true,          // will verify username, password, rePassword, phone, email fields
-                phone: 'notnull,phone', // all the rules are notnull, phone, email, repasword
+                phone: 'notnull,phone', // all the rules are notnull, phone, email, repassword
                 field: value => {       // the rule can be a function
                     return {
                         result: false,
@@ -102,4 +102,8 @@ api.php
                     }
                 }
             }
-        }, 'element', callback)
+        }, 'element', form => {})
+
+
+### others
+> the form style uses [pure.css](https://github.com/pure-css/pure) by default 
