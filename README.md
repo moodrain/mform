@@ -72,41 +72,41 @@ api.php
 
 ### option list
 
-        $mfotm({
-            prefix: '',
-            api: '',
-            action: '',      // you can not set api and action in the same time
-            enctype: 'json', // the enctype can be form (default), data or json
-            fields: [
-                'label:id or name:type:placeholder>attribute1,attribute2',
-                'label:id or name:select>attribute1|text1:val1,text2:val2',
-            ],
-            btns: [
-                'text:id or name:type:class',
-            ],
-            values: {
-                field1: val1,
-                field2: val2,
-            },
-            format: {
-                field: v => fun(v)
-            },
-            verify: {
-                all: 'notnull',
-                default: true,          // will verify username, password, rePassword, phone, email fields
-                phone: 'notnull,phone', // all the rules are notnull, phone, email, repassword
-                field: value => {       // the rule can be a function
-                    return {
-                        result: false,
-                        message: 'verify field fail',
-                    }
+    $mfotm({
+        prefix: '',
+        api: '',
+        action: '',      // you can not set api and action at the same time
+        enctype: 'json', // the enctype can be form (default), data or json
+        fields: [
+            'label:id or name:type:placeholder>attribute1,attribute2',
+            'label:id or name:select>attribute1|text1:val1,text2:val2',
+        ],
+        btns: [
+            'text:id or name:type:class',
+        ],
+        values: {
+            field1: val1,
+            field2: val2,
+        },
+        format: {
+            field: value => {}
+        },
+        verify: {
+            all: 'notnull',
+            default: true,          // will verify username, password, rePassword, phone, email fields
+            phone: 'notnull,phone', // all the rules are notnull, phone, email, repassword
+            field: value => {       // the rule can be a function
+                return {
+                    result: false,
+                    message: 'verify field fail',
                 }
-            },
-			notifier: {
-				success: message => {},
-				error: message => {}
-			}
-        }, 'element', form => {})
+            }
+        },
+        notifier: {
+            success: message => {},
+            error: message => {},
+        },
+    }, 'element', form => {})
 
 
 ### others
