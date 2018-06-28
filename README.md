@@ -14,42 +14,42 @@ a form with comprehensive elements holding various types and attributes, which l
 
 demo.html
 
-        $mform({
-            prefix: 'student',
-            api: 'api.php',
-            enctype: 'json',
-            fields: [
-                '编号:id:number>readonly',
-                '姓名:name>required,autofocus',
-                '手机:phone',
-                '邮箱:email',
-                '密码:password:password',
-                '确认密码:rePassword:password:再输入一遍密码',
-                '头像:avatar:file',
-                '性别:sex:select>disabled|未选择:0,男:1,女:2',
-                '上次登录:updatedAt:date',
-                '简介:detail:textarea>autooff',
-                '团员:tuanyuan:checkbox'
-            ],
-            btns: [
-                '确认提交:submit-btn:submit',
-                '重置:reset-btn:reset:pure-button',
-            ],
-            values: {
-                id: 11,
-                name: 'Muyu',
-                detail: 'Hello World',
-                tuanyuan: true,
-                updatedAt: 1530108967000
-            },
-            format: {
-                updatedAt: t => $date(t)
-            },
-            verify: {
-                all: 'notnull',
-                default: 'on',
-            }
-        }, 'container')
+    $mform({
+        prefix: 'student',
+        api: 'api.php',
+        enctype: 'json',
+        fields: [
+            '编号:id:number>readonly',
+            '姓名:name>required,autofocus',
+            '手机:phone',
+            '邮箱:email',
+            '密码:password:password',
+            '确认密码:rePassword:password:再输入一遍密码',
+            '头像:avatar:file',
+            '性别:sex:select>disabled|未选择:0,男:1,女:2',
+            '上次登录:updatedAt:date',
+            '简介:detail:textarea>autooff',
+            '团员:tuanyuan:checkbox'
+        ],
+        btns: [
+            '确认提交:submit-btn:submit',
+            '重置:reset-btn:reset:pure-button',
+        ],
+        values: {
+            id: 11,
+            name: 'Muyu',
+            detail: 'Hello World',
+            tuanyuan: true,
+            updatedAt: 1530108967000
+        },
+        format: {
+            updatedAt: t => $date(t)
+        },
+        verify: {
+            all: 'notnull',
+            default: 'on',
+        }
+    }, 'container')
 
 api.php
 
