@@ -30,7 +30,7 @@ function $mform(mform, container, callback) {
     mform = mform.mform = formWrapper(createForm(mform))
     if(container)
         $add($e(container), mform.tag)
-    if(mform.object.api) {
+    if(mform.object.api && mform.object.load !== false) {
         if(!mform.object.values)
             mform.object.values = {}
         $get(mform.object.api, rs => {

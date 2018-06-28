@@ -76,6 +76,7 @@ api.php
         prefix: '',
         api: '',
         action: '',      // you can not set api and action at the same time
+        load: false      // set load false will not load field value from ajax
         enctype: 'json', // the enctype can be form (default), data or json
         fields: [
             'label:id or name:type:placeholder>attribute1,attribute2',
