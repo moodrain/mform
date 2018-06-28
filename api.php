@@ -1,6 +1,6 @@
 <?php
+header('Content-Type: application/json');
 if($_SERVER['REQUEST_METHOD'] == 'GET') {
-    header('Content-Type: application/json');
     echo json_encode([
         'data' => [
             'sex' => 1

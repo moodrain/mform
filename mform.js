@@ -108,7 +108,7 @@ function $mform(mform, container, callback) {
     function initVerify(form) {
         let rules = {}
         for([key, val] of Object.entries(form.verify)) {
-            val = val.split(',')
+            val = typeof val == 'function' ? [val] : val.split(',')
             if(key == 'default') {
                 form.fields.forEach(field => {
                     switch(field.name) {
