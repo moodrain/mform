@@ -80,7 +80,8 @@ api.php
         enctype: 'json', // the enctype can be form (default), data or json
         fields: [
             'label:id or name:type:placeholder>attribute1,attribute2',
-            'label:id or name:select>attribute1|text1:val1,text2:val2',
+            'label:id or name:select>attribute|text1:val1,text2:val2',
+			'label:id or name:checkbox>attribute|value',
         ],
         btns: [
             'text:id or name:type:class',

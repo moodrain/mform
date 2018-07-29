@@ -24,7 +24,7 @@ function $mform(mform, container, callback) {
     }
     mform.formData = () => {
         let keys = []
-        mform.object.fields.forEach(field => { keys.push(field.object.name) })
+        mform.object.fields.forEach(field => { keys.push(field.object.name.replace('[]', '')) })
         return $fd(keys, $vdf(mform.object.prefix, undefined))
     }
     mform = mform.mform = formWrapper(createForm(mform))
@@ -64,7 +64,7 @@ function $mform(mform, container, callback) {
         let fields = []
         rawFields.forEach(rawField => {
             let fd = rawField.split(':')
-            let key, id, name, tag, type, options, attributes, placeholder
+            let key, id, name, tag, type, options, attributes, placeholder,checkboxVal
             key = fd[0]
             id = (mform.prefix ? mform.prefix + '-' + fd[1] : fd[1]).split('>')[0]
             name = fd[1].split('>')[0]
@@ -89,13 +89,17 @@ function $mform(mform, container, callback) {
                     options[optionKV[0]] = optionKV[1]
                 })
             }
+            if(type == 'checkbox') {
+                name = name + '[]'
+                checkboxVal = $vdf(rawField.split('|')[1], id)
+            }
             attributes = $vlt(rawField.split('>')[1], e => e.split('|')[0], e => e.split(','))
             if(attributes)
                 for(let i = 0;i < attributes.length;i++)
                     if(attributes[i] == 'readonly')
                         attributes[i] = 'readOnly'
             placeholder = $vdf(fd[3], undefined)
-            fields.push({key, id, name, tag, type, options, attributes, placeholder})
+            fields.push({key, id, name, tag, type, options, attributes, placeholder,checkboxVal})
         })
         return fields
     }
@@ -232,6 +236,8 @@ function $mform(mform, container, callback) {
                 $add(tag, optionTag)
             }
         }
+        if(input.checkboxVal)
+            tag.value = input.checkboxVal
         if(input.attributes) {
             input.attributes.forEach(attribute => {
                 switch(attribute) {
