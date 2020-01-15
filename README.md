@@ -68,7 +68,7 @@ api.php
 	     ]);
 	 }
 
-![demo](https://cdn.moodrain.cn/github/mform-1.png)
+![1.gif](https://i.loli.net/2020/01/15/BEHXQd9aGRptZek.gif)
 
 ### option list
 
