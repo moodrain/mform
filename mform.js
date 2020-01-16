@@ -348,7 +348,7 @@ function $mform(mform, container, callback) {
             if(links[i].href.indexOf('muyu.css'))
                 return
         $l('未发现muyu的link标签，将通过ajax加载 | the link tag of muyu not found, loading from ajax')
-        $get('https://cdn.moodrain.cn/static/muyu.css', {}, rs => {
+        $get('https://s1.moodrain.cn/lib/muyu.css', {}, rs => {
             let css = $tag("style", rs)
             css.type = "text/css"
             $add(document.body, css)
