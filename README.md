@@ -6,6 +6,12 @@ mform
 > this lib uses es6 and require muyu-util
 >  
 > 该库使用es6语法，需要沐雨工具库的依赖
+>
+> cdn 
+> 
+> [muyu.js](https://s1.moodrain.cn/lib/muyu/index.js) ``https://s1.moodrain.cn/lib/muyu/index.js``
+>
+> [mform.js](https://s1.moodrain.cn/lib/mform/index.js) ``https://s1.moodrain.cn/lib/mform/index.js``
 
 ### demo
 a form with comprehensive elements holding various types and attributes, which loads and post in ajax, verify inputs before submit, and enables to  customize your style and action by using callback
@@ -29,7 +35,7 @@ demo.html
             '性别:sex:select>disabled|未选择:0,男:1,女:2',
             '上次登录:updatedAt:date',
             '简介:detail:textarea>autooff',
-            '团员:tuanyuan:checkbox'
+            '会员:vip:checkbox'
         ],
         btns: [
             '确认提交:submit-btn:submit',
